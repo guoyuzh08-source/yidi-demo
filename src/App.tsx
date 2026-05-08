@@ -242,21 +242,22 @@ const Plan3FeaturedCard = () => {
             </div>
           )}
 
-          <div className="bg-[#F9F9F9] rounded-lg p-2 flex gap-2 relative border border-gray-100 shadow-inner mb-3 shrink-0">
-            <div className="absolute top-1 right-2 text-[#EFEFEF] opacity-50">
-              <Quote size={24} fill="currentColor" stroke="none" />
+          <div className="bg-gradient-to-br from-[#FFFBF2] via-[#FFF3E0] to-[#FFE4B5]/40 rounded-[14px] p-3 flex gap-2.5 relative border border-[#FFE4B5]/80 shadow-[inset_0_2px_8px_rgba(255,255,255,0.8),0_2px_8px_rgba(139,69,19,0.04)] mb-3 shrink-0 overflow-hidden">
+            <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-bl from-[#FFD161]/40 to-transparent rounded-full blur-[15px] pointer-events-none"></div>
+            <div className="absolute top-1 right-2 text-[#FFE5C4] opacity-50 mix-blend-multiply">
+              <Quote size={32} fill="currentColor" stroke="none" />
             </div>
-            <div className="w-0.5 bg-[#FFD161] rounded-full shrink-0 relative z-10"></div>
-            <div className="flex flex-col justify-center relative z-10">
-              <div className="flex items-center gap-2 mb-1.5 relative z-10 shrink-0">
-                <span className="text-[14px] font-bold text-gray-900 tracking-tight">
+            <div className="w-1 bg-gradient-to-b from-[#FFD161] to-[#FF9E00] rounded-full shrink-0 relative z-10 shadow-[1px_0_4px_rgba(255,209,97,0.4)]"></div>
+            <div className="flex flex-col justify-center relative z-10 w-full pt-0.5">
+              <div className="flex items-center gap-2 mb-2 relative z-10 shrink-0">
+                <span className="text-[14px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#8C5A2A] to-[#D08C4A] tracking-tight drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
                   推荐理由
                 </span>
                 <div className="flex gap-1.5">
-                  <span className="bg-[#F3E2CF] text-[#8C5A2A] text-[9px] px-1.5 py-0.5 rounded-sm flex items-center shadow-sm whitespace-nowrap">
+                  <span className="bg-gradient-to-r from-[#FDF0DE] to-[#F7DEBE] border border-[#ECD1B0] text-[#8C5A2A] text-[9px] px-1.5 py-0.5 rounded-sm flex items-center shadow-sm whitespace-nowrap font-bold">
                     <Star
                       size={8}
-                      className="mr-1"
+                      className="mr-1 text-[#FF9E00]"
                       fill="currentColor"
                       stroke="none"
                     />{" "}
@@ -264,7 +265,7 @@ const Plan3FeaturedCard = () => {
                   </span>
                 </div>
               </div>
-              <p className="text-[12px] text-[#A67B5B] leading-snug relative z-10 font-medium">
+              <p className="text-[12px] text-[#8C5A2A] leading-relaxed relative z-10 font-bold drop-shadow-[0_1px_1px_rgba(255,255,255,0.5)]">
                 {store.reason}
               </p>
             </div>
@@ -284,7 +285,7 @@ const Plan3FeaturedCard = () => {
             <div className="pb-2 px-1 flex items-center gap-1.5 shrink-0 border-t border-gray-100 pt-3 mt-1">
               <Sparkles size={16} className="text-orange-500" />
               <span className="text-[14px] font-bold text-gray-800 tracking-wide">
-                为您精选相似好店
+                精选餐厅推荐
               </span>
             </div>
 
@@ -376,7 +377,7 @@ const Plan3FeaturedCard = () => {
             onClick={() => setIsExpanded(!isExpanded)}
           >
             {isExpanded ? (
-              "收起相似好店推荐"
+              "收起精选餐厅推荐"
             ) : (
               <div className="relative flex items-center">
                 <Sparkles size={14} className="mr-1" />
@@ -740,8 +741,8 @@ export default function App() {
                           featuredStoresToUse.length
                       ] as any
                     )?.isAiCard && isAiExpanded
-                      ? 380
-                      : 310,
+                      ? 390
+                      : 330,
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 className="relative w-full flex items-center justify-center overflow-visible z-20"
@@ -862,22 +863,25 @@ export default function App() {
                             )}
 
                             {/* Reason Box */}
-                            <div className="bg-[#FFF9F3] rounded-xl p-2.5 relative overflow-hidden border border-[#FBE6D4] mt-auto">
+                            <div className="bg-gradient-to-br from-[#FFFBF2] via-[#FFF3E0] to-[#FFE4B5]/40 rounded-[14px] p-3 relative overflow-hidden border border-[#FFE4B5]/80 shadow-[inset_0_2px_8px_rgba(255,255,255,0.8),0_2px_8px_rgba(139,69,19,0.04)] mt-auto">
+                              <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-bl from-[#FFD161]/40 to-transparent rounded-full blur-[15px] pointer-events-none"></div>
+                              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-tr from-[#FF7A45]/15 to-transparent rounded-full blur-[10px] pointer-events-none"></div>
+
                               <Quote
-                                size={40}
-                                className="absolute -top-1 -right-1 text-[#F4DCC4] opacity-40 rotate-180"
+                                size={44}
+                                className="absolute -top-1 -right-2 text-[#FFE5C4] opacity-50 rotate-180"
                                 fill="currentColor"
                                 stroke="none"
                               />
-                              <div className="flex items-center gap-2 mb-1.5 relative z-10 shrink-0">
-                                <span className="text-[14px] font-bold text-gray-900 tracking-tight">
+                              <div className="flex items-center gap-2 mb-2 relative z-10 shrink-0">
+                                <span className="text-[14px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#8C5A2A] to-[#D08C4A] tracking-tight drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
                                   推荐理由
                                 </span>
                                 <div className="flex gap-1.5">
-                                  <span className="bg-[#F3E2CF] text-[#8C5A2A] text-[9px] px-1.5 py-0.5 rounded-sm flex items-center shadow-sm whitespace-nowrap">
+                                  <span className="bg-gradient-to-r from-[#FDF0DE] to-[#F7DEBE] border border-[#ECD1B0] text-[#8C5A2A] text-[9px] px-1.5 py-0.5 rounded-sm flex items-center shadow-sm whitespace-nowrap font-bold">
                                     <Star
                                       size={8}
-                                      className="mr-1"
+                                      className="mr-1 text-[#FF9E00]"
                                       fill="currentColor"
                                       stroke="none"
                                     />{" "}
@@ -885,7 +889,7 @@ export default function App() {
                                   </span>
                                 </div>
                               </div>
-                              <p className="text-[12px] text-[#A67B5B] leading-snug relative z-10 font-medium">
+                              <p className="text-[12px] text-[#8C5A2A] leading-relaxed relative z-10 font-bold line-clamp-2 drop-shadow-[0_1px_1px_rgba(255,255,255,0.5)]">
                                 {store.reason}
                               </p>
                             </div>
@@ -968,19 +972,24 @@ export default function App() {
                         )}
 
                         {/* Zhongcao Reason Box */}
-                        <div className="bg-white/70 rounded-lg p-2 mt-auto border border-[#FBE6D4]/60 shadow-[inset_0_1px_3px_rgba(255,255,255,0.8)] relative">
-                          <p className="text-[11px] text-[#A67B5B] leading-[1.3] font-bold line-clamp-2">
+                        <div className="bg-gradient-to-br from-[#FFFBF2] via-[#FFF3E0] to-[#FFE4B5]/40 rounded-[14px] p-2.5 mt-auto border border-[#FFE4B5]/80 shadow-[inset_0_2px_8px_rgba(255,255,255,0.8),0_2px_4px_rgba(139,69,19,0.02)] relative overflow-hidden">
+                          <div className="absolute -top-6 -right-6 w-16 h-16 bg-gradient-to-bl from-[#FFD161]/50 to-transparent rounded-full blur-[10px] pointer-events-none"></div>
+                          <p className="text-[11px] text-[#8C5A2A] leading-[1.3] font-bold line-clamp-2 relative z-10 shadow-[0_1px_1px_rgba(255,255,255,0.5)]">
                             <Quote
-                              size={12}
-                              className="inline mr-1 text-[#FFD161] drop-shadow-sm"
+                              size={14}
+                              className="inline mr-1 text-[#FF9E00]/60 drop-shadow-sm -mt-1"
                               fill="currentColor"
                               stroke="none"
                             />
-                            {s.name.includes("麻小") || s.name.includes("西北")
-                              ? "夜宵顶流！味道绝绝子，鲜香麻辣吮指回味，闭眼点不踩雷～"
-                              : s.name.includes("烧烤") || s.name.includes("串")
-                                ? "深夜灵魂烧烤，肉质鲜嫩多汁，香气扑鼻，简直是长夜必备！"
-                                : "种草神仙店铺！口味超赞，氛围感拉满，吃过一次就念念不忘。"}
+                            <span className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
+                              {s.name.includes("麻小") ||
+                              s.name.includes("西北")
+                                ? "夜宵顶流！味道绝绝子，鲜香麻辣吮指回味，闭眼点不踩雷～"
+                                : s.name.includes("烧烤") ||
+                                    s.name.includes("串")
+                                  ? "深夜灵魂烧烤，肉质鲜嫩多汁，香气扑鼻，简直是长夜必备！"
+                                  : "种草神仙店铺！口味超赞，氛围感拉满，吃过一次就念念不忘。"}
+                            </span>
                           </p>
                         </div>
                       </div>
