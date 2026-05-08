@@ -152,7 +152,7 @@ const Plan3FeaturedCard = () => {
       <div className="relative w-[340px] rounded-[24px] shadow-[0_12px_32px_rgba(0,0,0,0.12)] flex flex-col border border-gray-100/50 bg-white z-20 shrink-0">
         {/* Top Image */}
         <div className="relative shrink-0">
-          <img src={store.img} className="w-full h-[140px] object-cover rounded-t-[24px]" alt={store.name} />
+          <img src={store.img} className="w-full h-[120px] object-cover rounded-t-[24px]" alt={store.name} />
           {/* Badge */}
           <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-[#FFF0D4] text-[9px] font-medium px-2 py-1 rounded-full flex items-center border border-[#FFF0D4]/30 shadow-lg">
             <ThumbsUp size={10} className="mr-1" /> 必点榜 <span className="opacity-50 mx-1">|</span> 连续8年上榜
@@ -197,9 +197,82 @@ const Plan3FeaturedCard = () => {
              </div>
           </div>
 
+          {/* Expanded List moved inside the card */}
+          <motion.div
+            initial={false}
+            animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0, marginTop: isExpanded ? 12 : 0, marginBottom: isExpanded ? 12 : 0 }}
+            className="w-full overflow-hidden flex flex-col z-20"
+          >
+            <div className="pb-2 px-1 flex items-center gap-1.5 shrink-0 border-t border-gray-100 pt-3 mt-1">
+               <Sparkles size={16} className="text-orange-500" />
+               <span className="text-[14px] font-bold text-gray-800 tracking-wide">为您精选相似好店</span>
+            </div>
+            
+            {aiRestaurants.map((r, i) => {
+              const START_TICK = i * 40;
+              const myTicks = Math.max(0, ticks - START_TICK);
+              if (myTicks === 0) return null;
+
+              const showImage = myTicks > 2;
+              const showScore = myTicks > r.name.length + 5;
+
+              return (
+                <React.Fragment key={i}>
+                  <div className="flex gap-3 bg-gradient-to-r from-[#FFFBF5] to-[#FFF5F0] rounded-xl p-3 mb-2.5 border border-[#FBE6D4] shrink-0 relative overflow-hidden group shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+                     <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-orange-100/50 to-transparent rounded-bl-full pointer-events-none"></div>
+                     {showImage ? (
+                       <motion.img 
+                         initial={{ opacity: 0, scale: 0.8 }}
+                         animate={{ opacity: 1, scale: 1 }}
+                         src={r.img} 
+                         className="w-14 h-14 rounded-xl object-cover shadow-[0_2px_8px_rgba(255,140,0,0.1)] shrink-0 z-10" 
+                       />
+                     ) : <div className="w-14 h-14 rounded-xl bg-orange-100/50 animate-pulse shrink-0 z-10"></div>}
+                     <div className="flex flex-col justify-center flex-1 min-w-0 z-10">
+                        <div className="text-[15px] font-bold text-gray-900 truncate">
+                          {r.name.substring(0, Math.min(r.name.length, myTicks))}
+                          {myTicks < r.name.length && <span className="inline-block w-1 h-3.5 bg-orange-400 ml-0.5 animate-pulse"></span>}
+                        </div>
+                        <div className="text-[12px] text-[#A67B5B] truncate mt-1.5 flex items-center">
+                           <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 shrink-0 opacity-60"></span>
+                           {r.reason.substring(0, Math.max(0, myTicks - r.name.length))}
+                           {myTicks >= r.name.length && myTicks < r.name.length + r.reason.length && <span className="inline-block w-1.5 h-3 bg-orange-300 ml-0.5 animate-pulse mt-0.5"></span>}
+                        </div>
+                     </div>
+                     {showScore && (
+                       <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="text-[13px] font-black text-orange-600 flex items-center justify-center shrink-0 z-10">
+                         {r.score}
+                       </motion.div>
+                     )}
+                  </div>
+                  {i === 0 && myTicks > 20 && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }} 
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="w-full bg-gradient-to-r from-[#FF5C5C] to-[#E32323] rounded-xl p-3 mb-2.5 flex items-center justify-between text-[#FFEBD2] shadow-[0_4px_12px_rgba(227,35,35,0.2)] shrink-0 border border-[#FF8F8F]"
+                    >
+                      <div className="flex items-center gap-2.5">
+                         <div className="w-9 h-9 bg-gradient-to-br from-[#FFDE73] to-[#FFC300] rounded-full flex items-center justify-center shadow-inner relative">
+                           <span className="text-[20px] drop-shadow-sm rotate-12">🧧</span>
+                         </div>
+                         <div className="flex flex-col">
+                            <span className="text-[14px] font-black text-[#FFDE73] drop-shadow-sm tracking-wide">天降神券 最高减15元</span>
+                            <span className="text-[11px] font-medium opacity-90 mt-0.5">本单可用，下单更优惠</span>
+                         </div>
+                      </div>
+                      <div className="bg-gradient-to-r from-[#FFDE73] to-[#FFC300] text-[#D0021B] text-[12px] font-black px-3.5 py-1.5 rounded-full shadow-md active:scale-95 transition-transform cursor-pointer">
+                        去领取
+                      </div>
+                    </motion.div>
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </motion.div>
+
           {/* Expand Button */}
           <div 
-             className="w-full py-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-full text-blue-600 text-[13px] font-bold flex items-center justify-center cursor-pointer hover:bg-blue-100 transition-colors shadow-sm mt-auto overflow-visible"
+             className="w-full py-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-full text-blue-600 text-[13px] font-bold flex items-center justify-center cursor-pointer hover:bg-blue-100 transition-colors shadow-sm shrink-0 overflow-visible z-30"
              onClick={() => setIsExpanded(!isExpanded)}
           >
              {isExpanded ? "收起相似好店推荐" : (
@@ -218,81 +291,6 @@ const Plan3FeaturedCard = () => {
           </div>
         </div>
       </div>
-
-      {/* Expanded List beneath the card */}
-      <motion.div
-        initial={false}
-        animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0, marginTop: isExpanded ? 12 : 0 }}
-        className="w-full max-w-[340px] overflow-hidden flex flex-col"
-      >
-        <div className="pb-2 px-1 flex items-center gap-1.5 shrink-0">
-           <Sparkles size={16} className="text-orange-500" />
-           <span className="text-[14px] font-bold text-gray-800 tracking-wide">为您精选相似好店</span>
-        </div>
-        
-        {aiRestaurants.map((r, i) => {
-          const START_TICK = i * 40;
-          const myTicks = Math.max(0, ticks - START_TICK);
-          if (myTicks === 0) return null;
-
-          const showImage = myTicks > 2;
-          const showScore = myTicks > r.name.length + 5;
-
-          return (
-            <React.Fragment key={i}>
-              <div className="flex gap-3 bg-gradient-to-r from-[#FFFBF5] to-[#FFF5F0] rounded-xl p-3 mb-2.5 border border-[#FBE6D4] shrink-0 relative overflow-hidden group shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
-                 <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-orange-100/50 to-transparent rounded-bl-full pointer-events-none"></div>
-                 {showImage ? (
-                   <motion.img 
-                     initial={{ opacity: 0, scale: 0.8 }}
-                     animate={{ opacity: 1, scale: 1 }}
-                     src={r.img} 
-                     className="w-14 h-14 rounded-xl object-cover shadow-[0_2px_8px_rgba(255,140,0,0.1)] shrink-0 z-10" 
-                   />
-                 ) : <div className="w-14 h-14 rounded-xl bg-orange-100/50 animate-pulse shrink-0 z-10"></div>}
-                 <div className="flex flex-col justify-center flex-1 min-w-0 z-10">
-                    <div className="text-[15px] font-bold text-gray-900 truncate">
-                      {r.name.substring(0, Math.min(r.name.length, myTicks))}
-                      {myTicks < r.name.length && <span className="inline-block w-1 h-3.5 bg-orange-400 ml-0.5 animate-pulse"></span>}
-                    </div>
-                    <div className="text-[12px] text-[#A67B5B] truncate mt-1.5 flex items-center">
-                       <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2 shrink-0 opacity-60"></span>
-                       {r.reason.substring(0, Math.max(0, myTicks - r.name.length))}
-                       {myTicks >= r.name.length && myTicks < r.name.length + r.reason.length && <span className="inline-block w-1.5 h-3 bg-orange-300 ml-0.5 animate-pulse mt-0.5"></span>}
-                    </div>
-                 </div>
-                 {showScore && (
-                   <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="text-[13px] font-black text-orange-600 flex items-center justify-center shrink-0 z-10">
-                     {r.score}
-                   </motion.div>
-                 )}
-              </div>
-              {i === 0 && myTicks > 20 && (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }} 
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="w-full bg-gradient-to-r from-[#FF5C5C] to-[#E32323] rounded-xl p-3 mb-2.5 flex items-center justify-between text-[#FFEBD2] shadow-[0_4px_12px_rgba(227,35,35,0.2)] shrink-0 border border-[#FF8F8F]"
-                >
-                  <div className="flex items-center gap-2.5">
-                     <div className="w-9 h-9 bg-gradient-to-br from-[#FFDE73] to-[#FFC300] rounded-full flex items-center justify-center shadow-inner relative">
-                       <span className="text-[20px] drop-shadow-sm rotate-12">🧧</span>
-                     </div>
-                     <div className="flex flex-col">
-                        <span className="text-[14px] font-black text-[#FFDE73] drop-shadow-sm tracking-wide">天降神券 最高减15元</span>
-                        <span className="text-[11px] font-medium opacity-90 mt-0.5">本单可用，下单更优惠</span>
-                     </div>
-                  </div>
-                  <div className="bg-gradient-to-r from-[#FFDE73] to-[#FFC300] text-[#D0021B] text-[12px] font-black px-3.5 py-1.5 rounded-full shadow-md active:scale-95 transition-transform cursor-pointer">
-                    去领取
-                  </div>
-                </motion.div>
-              )}
-            </React.Fragment>
-          );
-        })}
-        {/* Bottom spacer equivalent to the bottom scroll area padding */}
-        <div className="h-6"></div>
-      </motion.div>
     </div>
   );
 };
@@ -358,7 +356,7 @@ const AIRestaurantCard = ({ isActive, isExpanded, setIsExpanded }: { isActive: b
         <span className="text-[14px] font-bold text-[#FFD161] drop-shadow-md tracking-wider">深夜充电好去处</span>
       </div>
       
-      <div className="flex-1 overflow-hidden relative z-10 transition-all duration-300 w-full mb-8">
+      <div className="flex-1 overflow-hidden relative z-10 transition-all duration-300 w-full mb-2">
         <div className="flex flex-col gap-2 overflow-y-auto hide-scrollbar w-full h-full pb-2">        
           {aiRestaurants.map((r, i) => {
             const START_TICK = i * 40;
@@ -400,7 +398,7 @@ const AIRestaurantCard = ({ isActive, isExpanded, setIsExpanded }: { isActive: b
       </div>
 
       {/* Button at bottom */}
-      <div className="absolute bottom-3 left-0 w-full flex justify-center z-20 pointer-events-auto">
+      <div className="w-full flex justify-center z-20 pointer-events-auto shrink-0 mt-auto">
         <div 
           onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
           className="text-white/90 font-medium active:text-white text-[11px] bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full cursor-pointer hover:bg-white/20 transition-all shadow-[0_4px_10px_rgba(0,0,0,0.3)] border border-white/10 flex items-center justify-center"
@@ -483,10 +481,10 @@ export default function App() {
       <div className="bg-[#f0f0f5] w-[375px] h-[812px] relative overflow-hidden flex flex-col shadow-2xl overflow-y-auto hide-scrollbar">
         
         {/* Main Scrollable Content */}
-        <div className="flex-1 overflow-y-auto hide-scrollbar pb-[100px]">
+        <div className="flex-1 overflow-y-auto hide-scrollbar pb-[80px]">
           
           {/* Header & Banner Area (Night Vibe) */}
-          <div className="relative pt-8 pb-3 px-3 bg-[#160f24] overflow-hidden rounded-b-[24px] shadow-[0_4px_15px_rgba(22,15,36,0.1)] mb-1">
+          <div className="relative pt-4 pb-2 px-3 bg-[#160f24] overflow-hidden rounded-b-[24px] shadow-[0_4px_15px_rgba(22,15,36,0.1)] mb-1">
             {/* Background Image: Starry Sky */}
             <div className="absolute inset-0 opacity-85 mix-blend-luminosity">
               <img 
@@ -511,7 +509,7 @@ export default function App() {
             </div>
             
             {/* Top Bar */}
-            <div className="flex justify-between items-center relative z-10 mb-6 mt-2">
+            <div className="flex justify-between items-center relative z-10 mb-2 mt-1">
               <div className="flex items-center text-[14px] font-bold text-white bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/15 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
                 <MapPin size={15} className="mr-1 text-[#FFD161]" />
                 <span className="drop-shadow-sm">望京恒电大厦BC座</span>
@@ -524,7 +522,7 @@ export default function App() {
             </div>
 
             {/* Title */}
-            <div className="relative z-10 mb-5 pl-1">
+            <div className="relative z-10 mb-2 pl-1">
                <h1 className="text-[34px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF] via-[#FFE599] to-[#FF9E00] tracking-tight leading-none drop-shadow-[0_2px_15px_rgba(255,209,97,0.35)]">
                  北京欢迎您
                </h1>
@@ -534,7 +532,7 @@ export default function App() {
             </div>
 
             {/* Search Bar */}
-            <div className="relative z-20 w-full mt-3">
+            <div className="relative z-20 w-full mt-2">
               <div className="bg-white/95 backdrop-blur-xl h-[38px] rounded-full shadow-[0_8px_25px_rgba(0,0,0,0.2)] flex items-center border border-white/30 overflow-hidden group hover:bg-white transition-colors">
                 <Search className="text-gray-400 ml-3.5 shrink-0 group-hover:text-[#FF9E00] transition-colors" size={16} />
                 <input 
@@ -550,14 +548,14 @@ export default function App() {
           </div>
 
           {/* Categories: 1 Row, 5.5 Items */}
-          <div className="pl-3 pt-3 pb-1 overflow-hidden">
+          <div className="pl-3 pt-2 pb-1 overflow-hidden">
              <div className="flex gap-[17px] overflow-x-auto hide-scrollbar pr-3">
               {KingKongCategories.map((cat, idx) => (
-                <div key={idx} className="flex flex-col items-center cursor-pointer group w-[50px] shrink-0">
-                  <div className={`w-[50px] h-[50px] rounded-[18px] ${cat.color} flex items-center justify-center text-[24px] mb-1.5 shadow-sm group-hover:scale-105 transition-transform`}>
+                <div key={idx} className="flex flex-col items-center cursor-pointer group w-[44px] shrink-0">
+                  <div className={`w-[44px] h-[44px] rounded-[16px] ${cat.color} flex items-center justify-center text-[22px] mb-1 shadow-sm group-hover:scale-105 transition-transform`}>
                     {cat.icon}
                   </div>
-                  <span className="text-[12px] font-medium text-gray-700 whitespace-nowrap">{cat.name}</span>
+                  <span className="text-[11px] font-medium text-gray-700 whitespace-nowrap">{cat.name}</span>
                 </div>
               ))}
             </div>
@@ -572,7 +570,7 @@ export default function App() {
               </div>
             ) : (
             <motion.div 
-              animate={{ height: (featuredStoresToUse[((activeStoreIndex % featuredStoresToUse.length) + featuredStoresToUse.length) % featuredStoresToUse.length] as any)?.isAiCard && isAiExpanded ? 400 : 330 }}
+              animate={{ height: (featuredStoresToUse[((activeStoreIndex % featuredStoresToUse.length) + featuredStoresToUse.length) % featuredStoresToUse.length] as any)?.isAiCard && isAiExpanded ? 380 : 310 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className="relative w-full flex items-center justify-center overflow-visible z-20"
             >
@@ -594,7 +592,7 @@ export default function App() {
                     onClick={() => setActiveStoreIndex(virtualIndex)}
                     initial={false}
                     animate={{
-                      height: isActive && (store as any).isAiCard && isAiExpanded ? 400 : 330,
+                      height: isActive && (store as any).isAiCard && isAiExpanded ? 380 : 310,
                       x: isActive ? 0 : (isLeft ? -50 - 14 * (distance - 1) : 50 + 14 * (distance - 1)),
                       scale: isActive ? 1 : 1 - 0.1 * distance,
                       rotate: 0,
@@ -613,7 +611,7 @@ export default function App() {
                       <>
                         {/* Top Image */}
                         <div className="relative shrink-0">
-                          <img src={store.img} className="w-full h-[140px] object-cover" alt={store.name} />
+                          <img src={store.img} className="w-full h-[120px] object-cover" alt={store.name} />
                           {/* Badge */}
                           <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-[#FFF0D4] text-[9px] font-medium px-2 py-1 rounded-full flex items-center border border-[#FFF0D4]/30 shadow-lg">
                             <ThumbsUp size={10} className="mr-1" /> 必点榜 <span className="opacity-50 mx-1">|</span> 连续8年上榜
@@ -668,34 +666,15 @@ export default function App() {
             {/* Plan 2: Expand button and expanded list */}
             {activeTab === 'plan2' && (
               <div className="w-full px-2 -mt-4 mb-4 relative z-10 flex flex-col items-center">
-                {/* Liquid Glass Pedestal Button */}
-                <div
-                  onClick={() => setIsPlan2Expanded(!isPlan2Expanded)}
-                  className="relative w-[345px] py-2.5 px-6 bg-gradient-to-b from-white/40 via-white/60 to-white/40 backdrop-blur-[32px] border border-white/60 shadow-[0_16px_40px_rgba(0,0,0,0.1),inset_0_4px_12px_rgba(255,255,255,1),inset_0_-2px_10px_rgba(255,255,255,0.6)] rounded-[20px] cursor-pointer flex flex-col items-center justify-center group overflow-hidden"
-                >
-                  <div className="flex items-center justify-center gap-1.5 text-gray-900 font-extrabold text-[15px] z-20">
-                    <span className="drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-widest">{isPlan2Expanded ? '收起神秘夜宵榜单' : '点击展开 10 家精选夜宵'}</span>
-                    <ChevronDown size={18} className={`transition-transform duration-300 drop-shadow-sm ${isPlan2Expanded ? 'rotate-180' : 'group-hover:translate-y-1'}`} />
-                  </div>
-
-                  {/* Liquid reflections */}
-                  <div className="absolute top-0 left-[5%] w-[90%] h-[3px] bg-gradient-to-r from-transparent via-white/90 to-transparent blur-[1px]"></div>
-                  <div className="absolute top-[20px] left-[20%] w-[60%] h-[15px] bg-white/50 blur-[10px] rounded-full pointer-events-none"></div>
-                  <div className="absolute bottom-0 left-[10%] w-[80%] h-[2px] bg-gradient-to-r from-transparent via-white/70 to-transparent blur-[0.5px]"></div>
-                  
-                  {/* Dynamic swipe highlight */}
-                  <div className="absolute -inset-x-[150%] top-0 bottom-0 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out transform skew-x-[-20deg] z-10 pointer-events-none"></div>
-                </div>
-
                 {/* Expanded Content with Vibe and Reason */}
                 <motion.div
                   initial={false}
                   animate={{ 
                     height: isPlan2Expanded ? 'auto' : 0, 
                     opacity: isPlan2Expanded ? 1 : 0,
-                    marginTop: isPlan2Expanded ? 24 : 0
+                    marginBottom: isPlan2Expanded ? 24 : 0
                   }}
-                  className="w-full overflow-hidden flex flex-col gap-3.5"
+                  className="w-full overflow-hidden flex flex-col gap-3.5 mt-4"
                 >
                   {StoreList.slice(0, 5).map((s, i) => (
                     <motion.div 
@@ -737,6 +716,25 @@ export default function App() {
                     </motion.div>
                   ))}
                 </motion.div>
+
+                {/* Liquid Glass Pedestal Button */}
+                <div
+                  onClick={() => setIsPlan2Expanded(!isPlan2Expanded)}
+                  className="relative w-[345px] py-2.5 px-6 bg-gradient-to-b from-white/40 via-white/60 to-white/40 backdrop-blur-[32px] border border-white/60 shadow-[0_16px_40px_rgba(0,0,0,0.1),inset_0_4px_12px_rgba(255,255,255,1),inset_0_-2px_10px_rgba(255,255,255,0.6)] rounded-[20px] cursor-pointer flex flex-col items-center justify-center group overflow-hidden"
+                >
+                  <div className="flex items-center justify-center gap-1.5 text-gray-900 font-extrabold text-[15px] z-20">
+                    <span className="drop-shadow-[0_1px_2px_rgba(255,255,255,1)] tracking-widest">{isPlan2Expanded ? '收起神秘夜宵榜单' : '点击展开 10 家精选夜宵'}</span>
+                    <ChevronDown size={18} className={`transition-transform duration-300 drop-shadow-sm ${isPlan2Expanded ? 'rotate-180' : 'group-hover:translate-y-1'}`} />
+                  </div>
+
+                  {/* Liquid reflections */}
+                  <div className="absolute top-0 left-[5%] w-[90%] h-[3px] bg-gradient-to-r from-transparent via-white/90 to-transparent blur-[1px]"></div>
+                  <div className="absolute top-[20px] left-[20%] w-[60%] h-[15px] bg-white/50 blur-[10px] rounded-full pointer-events-none"></div>
+                  <div className="absolute bottom-0 left-[10%] w-[80%] h-[2px] bg-gradient-to-r from-transparent via-white/70 to-transparent blur-[0.5px]"></div>
+                  
+                  {/* Dynamic swipe highlight */}
+                  <div className="absolute -inset-x-[150%] top-0 bottom-0 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:translate-x-[150%] transition-transform duration-[1200ms] ease-in-out transform skew-x-[-20deg] z-10 pointer-events-none"></div>
+                </div>
               </div>
             )}
 
@@ -876,7 +874,7 @@ export default function App() {
         </div>
 
         {/* Variant Toggle Tab Bar */}
-        <div className="absolute bottom-[80px] left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-full p-1 flex shadow-lg z-50">
+        <div className="absolute bottom-[55px] left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-full p-1 flex shadow-lg z-[60]">
           {(['plan1', 'plan2', 'plan3'] as const).map(plan => (
             <div
               key={plan}
@@ -898,7 +896,7 @@ export default function App() {
              onPointerDownCapture={(e) => e.stopPropagation()}
              onDragStart={() => { (window as any).isDraggingRedPacket = true; }}
              onDragEnd={() => { setTimeout(() => { (window as any).isDraggingRedPacket = false; }, 100); }}
-             className="absolute right-4 bottom-[150px] z-[60] w-[54px] h-[64px] touch-none"
+             className="absolute right-4 bottom-[110px] z-[60] w-[54px] h-[64px] touch-none"
           >
             <motion.div
              initial={{ y: 0, opacity: 0 }}
@@ -965,24 +963,24 @@ export default function App() {
         )}
 
         {/* Bottom Nav */}
-        <nav className="absolute bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-100 flex justify-around items-center pt-2 pb-6 px-2 z-50">
+        <nav className="absolute bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-100 flex justify-around items-center pt-1.5 pb-2 px-2 z-50">
            <div className="flex flex-col items-center flex-1 cursor-pointer">
-              <div className="w-10 h-10 rounded-full bg-[#FFD161] flex items-center justify-center mb-0.5 shadow-sm transform hover:scale-105 transition-transform">
-                 <Home size={22} className="text-gray-900 fill-gray-900" />
+              <div className="w-8 h-8 rounded-full bg-[#FFD161] flex items-center justify-center mb-0.5 shadow-sm transform hover:scale-105 transition-transform">
+                 <Home size={18} className="text-gray-900 fill-gray-900" />
               </div>
-              <span className="text-[10px] font-bold text-gray-900">首页</span>
+              <span className="text-[9px] font-bold text-gray-900">首页</span>
            </div>
            <div className="flex flex-col items-center flex-1 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
-              <Crown size={24} className="mb-1" strokeWidth={1.5} />
-              <span className="text-[10px] font-medium">会员</span>
+              <Crown size={20} className="mb-0.5" strokeWidth={1.5} />
+              <span className="text-[9px] font-medium">会员</span>
            </div>
            <div className="flex flex-col items-center flex-1 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
-              <FileText size={24} className="mb-1" strokeWidth={1.5} />
-              <span className="text-[10px] font-medium">订单</span>
+              <FileText size={20} className="mb-0.5" strokeWidth={1.5} />
+              <span className="text-[9px] font-medium">订单</span>
            </div>
            <div className="flex flex-col items-center flex-1 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
-              <User size={24} className="mb-1" strokeWidth={1.5} />
-              <span className="text-[10px] font-medium">我的</span>
+              <User size={20} className="mb-0.5" strokeWidth={1.5} />
+              <span className="text-[9px] font-medium">我的</span>
            </div>
         </nav>
       </div>
