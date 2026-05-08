@@ -50,7 +50,7 @@ const FeaturedStores = [
     time: "55分钟",
     distance: "4.8km",
     tags: ["品牌", "支持自取"],
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Peking_duck_at_Siji_Minfu_%2820180905183350%29.jpg/640px-Peking_duck_at_Siji_Minfu_%2820180905183350%29.jpg",
+    img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=600&h=400",
     reason: "北京必吃榜推荐，烤鸭皮酥肉嫩，入口即化，感受极致京味体验。"
   },
   {
