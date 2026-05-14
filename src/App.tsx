@@ -819,7 +819,7 @@ export default function App() {
 
           {/* Featured Card Module */}
           <div className="mt-[20px] mb-0 relative z-10 w-full flex flex-col items-center">
-            <div className="w-full overflow-hidden px-4 pb-0 touch-none">
+            <div className="w-full overflow-hidden px-4 pb-4 flex flex-col pt-2 -mt-2 touch-none">
               <motion.div 
                 className="flex gap-3"
                 drag="x"
@@ -886,9 +886,14 @@ export default function App() {
 
                           {/* Text overlay on image at bottom */}
                           <div className="absolute bottom-0 left-0 right-0 p-3 pt-6 flex flex-col gap-1 text-white z-10">
-                            <h2 className="text-[20px] font-extrabold leading-tight truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wide">
-                              {store.name}
-                            </h2>
+                            <div className="flex justify-between items-center w-full">
+                              <h2 className="text-[20px] font-extrabold leading-tight truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wide flex-1 pr-2">
+                                {store.name}
+                              </h2>
+                              <div className="bg-[#FFCC33] text-[#000000] text-[14px] font-bold px-3 py-[5px] rounded-full shadow-sm shrink-0 leading-none">
+                                去下单
+                              </div>
+                            </div>
                             <div className="flex justify-between items-center text-[11px] font-medium opacity-95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] mt-0.5">
                               <div className="flex items-center gap-2">
                                 <span className="text-[#FFD161] font-bold flex items-center text-[12px]">
@@ -950,7 +955,7 @@ export default function App() {
             </div>
 
             {/* Scroll Indicators */}
-            <div className="flex gap-1.5 justify-center mt-[12px] mb-[12px] items-center h-[12px]">
+            <div className="flex gap-1.5 justify-center mt-0 mb-[16px] items-center h-[12px]">
               {featuredStoresToUse.map((_, index) => (
                 <div 
                   key={index} 
