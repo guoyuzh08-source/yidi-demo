@@ -140,6 +140,57 @@ const StoreList = [
     redPacketUsable: true,
     img: "https://images.unsplash.com/photo-1555126634-de26c2e22c95?auto=format&fit=crop&q=80&w=200&h=200",
   },
+  {
+    id: 4,
+    name: "茶颜悦色（五一广场店）",
+    brand: true,
+    score: 4.9,
+    sales: 9999,
+    perCapita: 18,
+    deliveryStart: 15,
+    deliveryFee: 1.5,
+    time: "25分钟",
+    distance: "1.0km",
+    rank: "长沙奶茶好评榜第1名",
+    tags: ["极速贴", "品牌优选"],
+    signatureDish: "幽兰拿铁",
+    redPacketUsable: true,
+    img: "https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?auto=format&fit=crop&q=80&w=200&h=200",
+  },
+  {
+    id: 5,
+    name: "公交新村粉店",
+    brand: false,
+    score: 4.7,
+    sales: 5400,
+    perCapita: 15,
+    deliveryStart: 15,
+    deliveryFee: 2.0,
+    time: "30分钟",
+    distance: "2.5km",
+    rank: "老长沙米粉热销榜第4名",
+    tags: ["新店特惠", "支持自取"],
+    signatureDish: "原汤肉丝粉",
+    redPacketUsable: false,
+    img: "https://images.unsplash.com/photo-1582875151240-da232fcc6f3d?auto=format&fit=crop&q=80&w=200&h=200",
+  },
+  {
+    id: 6,
+    name: "果呀呀（国金街店）",
+    brand: true,
+    score: 4.8,
+    sales: 6200,
+    perCapita: 25,
+    deliveryStart: 20,
+    deliveryFee: 2.5,
+    time: "35分钟",
+    distance: "1.8km",
+    rank: "果茶热销榜第2名",
+    tags: ["减免配送费"],
+    signatureDish: "芒果雪泥",
+    redPacketUsable: true,
+    img: "https://images.unsplash.com/photo-1560159846-5db2e6db5cbb?auto=format&fit=crop&q=80&w=200&h=200",
+  },
 ];
 
 const Plan3FeaturedCard = () => {
@@ -899,7 +950,7 @@ export default function App() {
             </div>
 
             {/* Scroll Indicators */}
-            <div className="flex gap-1.5 justify-center mt-1 mb-0 items-center h-[12px]">
+            <div className="flex gap-1.5 justify-center mt-1 items-center h-[12px]">
               {featuredStoresToUse.map((_, index) => (
                 <div 
                   key={index} 
@@ -909,7 +960,7 @@ export default function App() {
             </div>
 
             {/* Red Packet Static Banner */}
-            <div className="relative z-30 flex justify-center mt-[20px] mb-[20px]">
+            <div className="relative z-30 flex justify-center mt-[10px] mb-[10px]">
               <div className="flex gap-1.5 shrink-0 justify-center w-full">
                 {/* 神券 1 */}
                 <div 
@@ -962,56 +1013,17 @@ export default function App() {
             </div>
           </div>
 
-          {/* Store List Header with Filters */}
+          {/* Store List Header */}
           <div
             ref={listRef}
-            className="sticky top-0 bg-[#1C1731] z-30 pt-0 pb-2 px-3 shadow-[0_10px_10px_-10px_rgba(0,0,0,0.5)]"
+            className="sticky top-0 bg-[#1C1731] z-30 pt-0 pb-[20px] px-3 shadow-[0_10px_10px_-10px_rgba(0,0,0,0.5)]"
           >
-            <div className="flex items-center gap-5 mb-3 px-1">
+            <div className="flex items-center gap-5 px-1">
               <div className="relative cursor-pointer">
                 <span className="text-[18px] font-extrabold text-[#FFF0D4]">
                   附近商家
                 </span>
                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-1 bg-[#FFD161] rounded-full shadow-[0_0_8px_#FFD161]"></div>
-              </div>
-            </div>
-
-            {/* Dynamic Filter Row */}
-            <div className="flex gap-2 overflow-x-auto hide-scrollbar text-[12px] pb-1 px-1">
-              <div
-                onClick={() => setActiveFilter("all")}
-                className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors cursor-pointer font-medium ${activeFilter === "all" ? "bg-[#FFD161] text-gray-900 shadow-[0_0_10px_rgba(255,209,97,0.3)]" : "bg-[#251b3d] text-gray-300 border border-[#3b2d5c] shadow-sm hover:bg-[#342752]"}`}
-              >
-                综合排序
-              </div>
-              {/* Red Packet Filter Toggle */}
-              <div
-                onClick={() =>
-                  setActiveFilter(
-                    activeFilter === "red_packet" ? "all" : "red_packet",
-                  )
-                }
-                className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors flex items-center cursor-pointer font-medium border ${activeFilter === "red_packet" ? "bg-red-500/20 text-red-400 border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.3)]" : "bg-[#251b3d] text-gray-300 border-[#3b2d5c] shadow-sm hover:bg-[#342752]"}`}
-              >
-                <div
-                  className={`mr-1 flex items-center justify-center rounded-sm w-3.5 h-3.5 text-[10px] font-bold ${activeFilter === "red_packet" ? "bg-red-500 text-white shadow-[0_0_5px_rgba(239,68,68,0.5)]" : "bg-red-500/20 text-red-400"}`}
-                >
-                  ¥
-                </div>
-                可用红包
-              </div>
-              <div
-                onClick={() => setActiveFilter("special")}
-                className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors cursor-pointer font-medium ${activeFilter === "special" ? "bg-[#FFD161] text-gray-900 shadow-[0_0_10px_rgba(255,209,97,0.3)]" : "bg-[#251b3d] text-gray-300 border border-[#3b2d5c] shadow-sm hover:bg-[#342752]"}`}
-              >
-                特价外卖
-              </div>
-              <div className="px-3.5 py-1.5 rounded-full whitespace-nowrap transition-colors cursor-pointer font-medium bg-[#251b3d] text-gray-300 border border-[#3b2d5c] shadow-sm hover:bg-[#342752]">
-                满减优惠{" "}
-                <ChevronRight
-                  size={12}
-                  className="inline ml-0.5 text-gray-400"
-                />
               </div>
             </div>
           </div>
