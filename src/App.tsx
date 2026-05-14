@@ -819,7 +819,7 @@ export default function App() {
 
           {/* Featured Card Module */}
           <div className="mt-[20px] mb-0 relative z-10 w-full flex flex-col items-center">
-            <div className="w-full overflow-hidden px-4 pb-2 touch-none">
+            <div className="w-full overflow-hidden px-4 pb-0 touch-none">
               <motion.div 
                 className="flex gap-3"
                 drag="x"
@@ -950,17 +950,17 @@ export default function App() {
             </div>
 
             {/* Scroll Indicators */}
-            <div className="flex gap-1.5 justify-center mt-1 items-center h-[12px]">
+            <div className="flex gap-1.5 justify-center mt-[12px] mb-[12px] items-center h-[12px]">
               {featuredStoresToUse.map((_, index) => (
                 <div 
                   key={index} 
-                  className={`rounded-full transition-all duration-300 ${index === (activeStoreIndex % featuredStoresToUse.length) ? "w-1.5 h-1.5 bg-black" : "w-1.5 h-1.5 bg-gray-300"}`}
+                  className={`rounded-full transition-all duration-300 ${index === (activeStoreIndex % featuredStoresToUse.length) ? "w-3.5 h-1.5 bg-[#FFCC33]" : "w-2.5 h-1.5 bg-[#D3D3D3]"}`}
                 />
               ))}
             </div>
 
             {/* Red Packet Static Banner */}
-            <div className="relative z-30 flex justify-center mt-[10px] mb-[10px]">
+            <div className="relative z-30 flex justify-center mb-[4px]">
               <div className="flex gap-1.5 shrink-0 justify-center w-full">
                 {/* 神券 1 */}
                 <div 
