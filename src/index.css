@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "PingFang SC", "Source Han Sans", Roboto, system-ui, sans-serif;
+  --font-mt-sans: "PingFang SC", "Source Han Sans", Roboto, system-ui, sans-serif;
+  --font-mt-num: "Meituan New Number", "PingFang SC", "Source Han Sans", Roboto, system-ui, sans-serif;
+
+  --color-mt-text-1: #111111;
+  --color-mt-text-2: #555555;
+  --color-mt-text-3: #888888;
+  --color-mt-text-4: #999999;
+  --color-mt-text-disabled: #C2C2C2;
+  
+  --color-mt-bg-1: #F5F5F5;
+  --color-mt-bg-2: #F7F7F7;
+  --color-mt-bg-3: #FAFAFA;
+  
+  --color-mt-red: #FF2D19;
+  --color-mt-yellow: #FFDD00;
+  --color-mt-orange: #FF7700;
+  
+  --color-mt-divider-1: #E5E5E5;
+  --color-mt-divider-2: #F0F0F0;
+  
+  --color-mt-border-1: #CCCCCC;
+  --color-mt-border-2: #E5E5E5;
+
+  --radius-mt-1: 20px;
+  --radius-mt-2: 18px;
+  --radius-mt-3: 12px;
+  --radius-mt-4: 8px;
+  --radius-mt-5: 6px;
+  --radius-mt-6: 4px;
+}
+
 @layer utilities {
   .hide-scrollbar::-webkit-scrollbar {
     display: none;

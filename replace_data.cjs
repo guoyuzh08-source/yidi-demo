@@ -1,0 +1,166 @@
+const fs = require('fs');
+
+let code = fs.readFileSync('src/App.tsx', 'utf-8');
+
+const featuredStores = `const FeaturedStores = [
+  {
+    id: 1,
+    name: "炊烟小炒黄牛肉",
+    score: 4.9,
+    sales: 9999,
+    perCapita: 88,
+    time: "45分钟",
+    distance: "2.1km",
+    tags: ["长沙必吃榜"],
+    signatureDish: "小炒黄牛肉",
+    img: "https://images.unsplash.com/photo-1555126634-de26c2e22c95?auto=format&fit=crop&q=80&w=600&h=400",
+    reason: "走进联合国的湘菜代表，牛肉鲜嫩，辣味正宗，米饭杀手。",
+  },
+  {
+    id: 2,
+    name: "壹盏灯",
+    score: 4.8,
+    sales: 8500,
+    perCapita: 75,
+    time: "50分钟",
+    distance: "3.5km",
+    tags: ["老字号", "免配送费"],
+    signatureDish: "鸭掌筋",
+    img: "https://images.unsplash.com/photo-1560159846-5db2e6db5cbb?auto=format&fit=crop&q=80&w=600&h=400",
+    reason: "本地人排队也要吃的重口味湘菜馆，无辣不欢爱好者的天堂。",
+  },
+  {
+    id: 3,
+    name: "茶颜悦色",
+    score: 4.8,
+    sales: 8901,
+    perCapita: 18,
+    time: "30分钟",
+    distance: "1.2km",
+    tags: ["极速退"],
+    signatureDish: "幽兰拿铁",
+    img: "https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?auto=format&fit=crop&q=80&w=600&h=400",
+    reason: "经典茶饮品牌，茶底醇厚，奶香浓郁，招牌幽兰拿铁不可错过。",
+  },
+  {
+    id: 4,
+    name: "盟重烧烤",
+    score: 4.8,
+    sales: 7600,
+    perCapita: 80,
+    time: "40分钟",
+    distance: "1.8km",
+    tags: ["夜宵热门"],
+    signatureDish: "烈火牛肉",
+    img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600&h=400",
+    reason: "长沙现象级烧烤店，江湖气息浓厚，烤串火候极佳。",
+  },
+  {
+    id: "local-recommend" as any,
+    isAiCard: true as any,
+    name: "本地指南",
+    score: 0,
+    sales: 0,
+    perCapita: 0,
+    time: "",
+    distance: "",
+    tags: [],
+    signatureDish: "",
+    img: "",
+    reason: "",
+  },
+];`;
+
+const storeList = `const StoreList = [
+  {
+    id: 1,
+    name: "笨萝卜浏阳菜馆（育英街店）",
+    brand: true,
+    score: 4.8,
+    sales: 9800,
+    perCapita: 45,
+    deliveryStart: 20,
+    deliveryFee: 2.5,
+    time: "35分钟",
+    distance: "1.5km",
+    rank: "芙蓉区湘菜好评榜第1名",
+    tags: ["已测体温", "免配送费"],
+    signatureDish: "醋蒸鸡",
+    redPacketUsable: true,
+    img: "https://images.unsplash.com/photo-1563245372-f2172452c92e?auto=format&fit=crop&q=80&w=200&h=200",
+  },
+  {
+    id: 2,
+    name: "天宝兄弟（汇景城店）",
+    brand: true,
+    score: 4.9,
+    sales: 8202,
+    perCapita: 156,
+    deliveryStart: 50,
+    deliveryFee: 5.5,
+    time: "45分钟",
+    distance: "3.8km",
+    rank: "长沙小龙虾热销榜第1名",
+    tags: ["支持自取", "老板推荐"],
+    signatureDish: "天宝口味虾",
+    redPacketUsable: false,
+    img: "https://images.unsplash.com/photo-1582875151240-da232fcc6f3d?auto=format&fit=crop&q=80&w=200&h=200",
+  },
+  {
+    id: 3,
+    name: "费大厨辣椒炒肉（五一广场店）",
+    brand: true,
+    score: 4.8,
+    sales: 9102,
+    perCapita: 68,
+    deliveryStart: 20,
+    deliveryFee: 3.0,
+    time: "40分钟",
+    distance: "2.2km",
+    rank: "坡子街湘菜口碑榜第2名",
+    tags: ["极速退"],
+    signatureDish: "费大厨辣椒炒肉",
+    redPacketUsable: true,
+    img: "https://images.unsplash.com/photo-1555126634-de26c2e22c95?auto=format&fit=crop&q=80&w=200&h=200",
+  },
+];`;
+
+const aiRestaurants = `const aiRestaurants = [
+    {
+      name: "靓虾二哥",
+      score: "4.8分",
+      reason: "地道小龙虾，夜宵盲选不出错",
+      img: "https://images.unsplash.com/photo-1555126634-de26c2e22c95?auto=format&fit=crop&q=80&w=100&h=100",
+    },
+    {
+      name: "公交新村粉店",
+      score: "4.9分",
+      reason: "老长沙必嗦粉馆，原汤码子足",
+      img: "https://images.unsplash.com/photo-1582875151240-da232fcc6f3d?auto=format&fit=crop&q=80&w=100&h=100",
+    },
+    {
+      name: "黑色经典臭豆腐",
+      score: "4.8分",
+      reason: "外酥里嫩，灌汁风味一绝",
+      img: "https://images.unsplash.com/photo-1560159846-5db2e6db5cbb?auto=format&fit=crop&q=80&w=100&h=100",
+    },
+    {
+      name: "果呀呀",
+      score: "4.7分",
+      reason: "长沙本土果茶星光，鲜果多",
+      img: "https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?auto=format&fit=crop&q=80&w=100&h=100",
+    },
+    {
+      name: "客串出品",
+      score: "4.8分",
+      reason: "精致湘西烤串，环境潮人必去",
+      img: "https://images.unsplash.com/photo-1563245372-f2172452c92e?auto=format&fit=crop&q=80&w=100&h=100",
+    },
+  ];`;
+
+code = code.replace(/const FeaturedStores = \[[\s\S]*?\];/g, featuredStores);
+code = code.replace(/const StoreList = \[[\s\S]*?\];/g, storeList);
+code = code.replace(/const aiRestaurants = \[[\s\S]*?\];/g, aiRestaurants);
+
+fs.writeFileSync('src/App.tsx', code);
+console.log('replaced data');
