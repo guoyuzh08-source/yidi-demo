@@ -356,25 +356,54 @@ const Plan3FeaturedCard = () => {
                     <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="w-full bg-gradient-to-r from-[#FF5C5C] to-[#E32323] rounded-xl p-3 mb-2.5 flex items-center justify-between text-[#FFEBD2] shadow-[0_4px_12px_rgba(227,35,35,0.2)] shrink-0 border border-[#FF8F8F]"
+                      className="flex gap-1.5 mb-2.5 shrink-0 justify-center w-full"
                     >
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 bg-gradient-to-br from-[#FFDE73] to-[#FFC300] rounded-full flex items-center justify-center shadow-inner relative">
-                          <span className="text-[20px] drop-shadow-sm rotate-12">
-                            🧧
+                      {/* 神券 1 */}
+                      <div 
+                        onClick={onRedPacketClick}
+                        className="rounded-[8px] overflow-hidden flex bg-[#FF0B24] cursor-pointer active:scale-95 transition-transform shadow-[0_2px_8px_rgba(255,11,36,0.2)] relative border border-[#FF8F8F]/50 shrink-0"
+                        style={{ width: 173.5, height: 69 }}
+                      >
+                        <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#FFFDF8] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
+                        <div className="bg-white flex flex-col items-center justify-center relative shrink-0" style={{ width: 76 }}>
+                          <span className="text-[#FF0B24] font-black text-[28px] leading-none flex items-baseline">
+                            <span className="text-[14px] mr-[1px]">¥</span>10
                           </span>
+                          <span className="text-[#FF0B24] text-[10px] font-medium opacity-90 mt-1 whitespace-nowrap">满999可用</span>
+                          {/* 右侧内缺口（形成分离感） */}
+                          <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#FF0B24] rounded-full z-10 shadow-inner"></div>
                         </div>
-                        <div className="flex flex-col">
-                          <span className="text-[14px] font-black text-[#FFDE73] drop-shadow-sm tracking-wide">
-                            天降神券 最高减15元
-                          </span>
-                          <span className="text-[11px] font-medium opacity-90 mt-0.5">
-                            本单可用，下单更优惠
-                          </span>
+                        <div className="flex-1 flex flex-col justify-center items-start pl-2 pr-1 text-white relative py-1">
+                          <span className="font-black tracking-wide whitespace-nowrap flex items-center" style={{ width: 78, height: 14, fontSize: 13, lineHeight: '14px' }}>吃喝玩乐神券</span>
+                          <span className="font-medium opacity-90 mt-0.5 flex items-center whitespace-nowrap" style={{ width: 76.5, height: 14, fontSize: 10, lineHeight: '14px' }}>03:09:01后失效</span>
+                          <div className="bg-white text-[#FF0B24] text-[10px] font-bold px-3 py-[2.5px] rounded-full shadow-sm mt-[3px] w-fit">
+                            去使用
+                          </div>
                         </div>
                       </div>
-                      <div className="bg-gradient-to-r from-[#FFDE73] to-[#FFC300] text-[#D0021B] text-[12px] font-black px-3.5 py-1.5 rounded-full shadow-md active:scale-95 transition-transform cursor-pointer">
-                        去领取
+
+                      {/* 神券 2 */}
+                      <div 
+                        onClick={onRedPacketClick}
+                        className="rounded-[8px] overflow-hidden flex bg-[#FF0B24] cursor-pointer active:scale-95 transition-transform shadow-[0_2px_8px_rgba(255,11,36,0.2)] relative border border-[#FF8F8F]/50 shrink-0"
+                        style={{ width: 173.5, height: 69 }}
+                      >
+                        <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#FFFDF8] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
+                        <div className="bg-white flex flex-col items-center justify-center relative shrink-0" style={{ width: 76 }}>
+                          <span className="text-[#FF0B24] font-black text-[28px] leading-none flex items-baseline">
+                            <span className="text-[14px] mr-[1px]">¥</span>8
+                          </span>
+                          <span className="text-[#FF0B24] text-[10px] font-medium opacity-90 mt-1 whitespace-nowrap">满30可用</span>
+                          {/* 右侧内缺口（形成分离感） */}
+                          <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#FF0B24] rounded-full z-10 shadow-inner"></div>
+                        </div>
+                        <div className="flex-1 flex flex-col justify-center items-start pl-2 pr-1 text-white relative py-1">
+                          <span className="font-black tracking-wide whitespace-nowrap flex items-center" style={{ width: 78, height: 14, fontSize: 13, lineHeight: '14px' }}>吃喝玩乐神券</span>
+                          <span className="font-medium opacity-90 mt-0.5 flex items-center whitespace-nowrap" style={{ width: 76.5, height: 14, fontSize: 10, lineHeight: '14px' }}>03:09:01后失效</span>
+                          <div className="bg-white text-[#FF0B24] text-[10px] font-bold px-3 py-[2.5px] rounded-full shadow-sm mt-[3px] w-fit">
+                            去使用
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -417,12 +446,14 @@ const AIRestaurantCard = ({
   setIsExpanded,
   index,
   total,
+  onRedPacketClick,
 }: {
   isActive: boolean;
   isExpanded: boolean;
   setIsExpanded: (v: boolean) => void;
   index?: number;
   total?: number;
+  onRedPacketClick?: () => void;
 }) => {
   const [ticks, setTicks] = React.useState(0);
 
@@ -604,7 +635,7 @@ const Countdown = () => {
   const s = (timeLeft % 60).toString().padStart(2, "0");
 
   return (
-    <span className="flex items-center gap-0.5 font-mono text-[11px] bg-black/10 px-1 rounded-sm">
+    <span className="flex items-center font-mono text-[11px]">
       <span>{h}</span>:<span>{m}</span>:<span>{s}</span>
     </span>
   );
@@ -771,6 +802,7 @@ export default function App() {
                         setIsExpanded={setIsAiExpanded}
                         index={origIndex}
                         total={featuredStoresToUse.length}
+                        onRedPacketClick={scrollToFilter}
                       />
                     ) : (
                       <>
@@ -867,7 +899,7 @@ export default function App() {
             </div>
 
             {/* Scroll Indicators */}
-            <div className="flex gap-1.5 justify-center mt-1 mb-1 items-center h-[12px]">
+            <div className="flex gap-1.5 justify-center mt-1 mb-0 items-center h-[12px]">
               {featuredStoresToUse.map((_, index) => (
                 <div 
                   key={index} 
@@ -877,34 +909,57 @@ export default function App() {
             </div>
 
             {/* Red Packet Static Banner */}
-            <div className="relative z-30 flex justify-center mt-3 mb-[20px]">
-              <div
-                onClick={scrollToFilter}
-                className="w-[340px] bg-gradient-to-r from-[#FF4D4F] to-[#FF7A45] rounded-[16px] py-2 px-4 flex justify-between items-center text-white cursor-pointer shadow-[0_4px_16px_rgba(255,77,79,0.25)] relative overflow-hidden hover:brightness-105 transition-all"
-              >
-                  <div className="flex items-center z-10">
-                    <div className="bg-white/20 text-white font-black text-[22px] px-2.5 py-0.5 rounded-lg mr-3 flex items-center shadow-inner tracking-tight border border-white/20 backdrop-blur-sm">
-                      <span className="text-[14px] font-bold mr-0.5 font-mt-num">
-                        ¥
-                      </span>
-                      18
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[15px] font-extrabold leading-tight drop-shadow-sm tracking-wide">
-                        吃喝玩乐神券
-                      </span>
-                      <span className="text-[11px] text-white/90 mt-0.5 font-medium flex items-center gap-1">
-                        距失效 <Countdown />
-                      </span>
+            <div className="relative z-30 flex justify-center mt-[20px] mb-[20px]">
+              <div className="flex gap-1.5 shrink-0 justify-center w-full">
+                {/* 神券 1 */}
+                <div 
+                  onClick={scrollToFilter}
+                  className="rounded-[8px] overflow-hidden flex bg-[#FF0B24] cursor-pointer active:scale-95 transition-transform shadow-[0_2px_8px_rgba(255,11,36,0.2)] relative border border-[#FF8F8F]/50 shrink-0"
+                  style={{ width: 173.5, height: 69 }}
+                >
+                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#1C1731] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
+                  <div className="bg-white flex flex-col items-center justify-center relative shrink-0" style={{ width: 76 }}>
+                    <span className="text-[#FF0B24] font-black text-[28px] leading-none flex items-baseline">
+                      <span className="text-[14px] mr-[1px]">¥</span>10
+                    </span>
+                    <span className="text-[#FF0B24] text-[10px] font-medium opacity-90 mt-1 whitespace-nowrap">满999可用</span>
+                    {/* 右侧内缺口（形成分离感） */}
+                    <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#FF0B24] rounded-full z-10 shadow-inner"></div>
+                  </div>
+                  <div className="flex-1 flex flex-col justify-center items-start pl-2 pr-1 text-white relative py-1">
+                    <span className="font-black tracking-wide whitespace-nowrap flex items-center" style={{ width: 78, height: 14, fontSize: 13, lineHeight: '14px' }}>吃喝玩乐神券</span>
+                    <span className="font-medium opacity-90 mt-0.5 flex items-center whitespace-nowrap" style={{ width: 76.5, height: 14, fontSize: 10, lineHeight: '14px' }}><Countdown />后失效</span>
+                    <div className="bg-white text-[#FF0B24] text-[10px] font-bold px-3 py-[2.5px] rounded-full shadow-sm mt-[3px] w-fit">
+                      去使用
                     </div>
                   </div>
-                  <div className="z-10 bg-white text-[#FF4D4F] text-[12px] font-black px-4 py-1.5 rounded-full shadow-sm whitespace-nowrap active:scale-95 transition-transform">
-                    立即下单
+                </div>
+
+                {/* 神券 2 */}
+                <div 
+                  onClick={scrollToFilter}
+                  className="rounded-[8px] overflow-hidden flex bg-[#FF0B24] cursor-pointer active:scale-95 transition-transform shadow-[0_2px_8px_rgba(255,11,36,0.2)] relative border border-[#FF8F8F]/50 shrink-0"
+                  style={{ width: 173.5, height: 69 }}
+                >
+                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#1C1731] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
+                  <div className="bg-white flex flex-col items-center justify-center relative shrink-0" style={{ width: 76 }}>
+                    <span className="text-[#FF0B24] font-black text-[28px] leading-none flex items-baseline">
+                      <span className="text-[14px] mr-[1px]">¥</span>8
+                    </span>
+                    <span className="text-[#FF0B24] text-[10px] font-medium opacity-90 mt-1 whitespace-nowrap">满30可用</span>
+                    {/* 右侧内缺口（形成分离感） */}
+                    <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#FF0B24] rounded-full z-10 shadow-inner"></div>
                   </div>
-                  <div className="absolute right-0 top-0 w-32 h-32 bg-white opacity-20 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-                  <div className="absolute left-1/4 bottom-0 w-16 h-16 bg-white opacity-10 rounded-full blur-xl transform -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+                  <div className="flex-1 flex flex-col justify-center items-start pl-2 pr-1 text-white relative py-1">
+                    <span className="font-black tracking-wide whitespace-nowrap flex items-center" style={{ width: 78, height: 14, fontSize: 13, lineHeight: '14px' }}>吃喝玩乐神券</span>
+                    <span className="font-medium opacity-90 mt-0.5 flex items-center whitespace-nowrap" style={{ width: 76.5, height: 14, fontSize: 10, lineHeight: '14px' }}><Countdown />后失效</span>
+                    <div className="bg-white text-[#FF0B24] text-[10px] font-bold px-3 py-[2.5px] rounded-full shadow-sm mt-[3px] w-fit">
+                      去使用
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
           </div>
 
           {/* Store List Header with Filters */}
