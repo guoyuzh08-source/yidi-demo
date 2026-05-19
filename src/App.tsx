@@ -14,6 +14,7 @@ import {
   Moon,
   ChevronDown,
   Sparkles,
+  Sparkle,
 } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "motion/react";
@@ -652,7 +653,7 @@ const AIRestaurantCard = ({
       </div>
 
       {/* Button at bottom */}
-      <div className="w-full flex justify-center z-20 pointer-events-auto shrink-0">
+      <div className="w-full flex justify-center z-20 pointer-events-auto shrink-0 pb-2">
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -697,10 +698,7 @@ export default function App() {
     "all" | "special" | "red_packet"
   >("all");
   const featuredStoresToUse = FeaturedStores;
-  const infiniteStores = React.useMemo(() => {
-    return Array.from({ length: 15 }).flatMap(() => featuredStoresToUse);
-  }, []);
-  const [activeStoreIndex, setActiveStoreIndex] = useState(featuredStoresToUse.length * 6);
+  const [activeStoreIndex, setActiveStoreIndex] = useState(0);
   const [isAiExpanded, setIsAiExpanded] = useState(false);
 
   const listRef = useRef<HTMLDivElement>(null);
@@ -718,63 +716,32 @@ export default function App() {
   return (
     <div className="bg-gray-200 min-h-screen flex justify-center font-sans">
       {/* Mobile container */}
-      <div className="bg-[#1C1731] w-[375px] h-[812px] relative overflow-hidden flex flex-col shadow-2xl overflow-y-auto hide-scrollbar">
+      <div className="bg-[#F5F5F6] w-[375px] h-[812px] relative overflow-hidden flex flex-col shadow-2xl overflow-y-auto hide-scrollbar">
         {/* Main Scrollable Content */}
         <div className="flex-1 overflow-y-auto hide-scrollbar pb-[80px]">
-          {/* Header & Banner Area (Night Vibe) */}
-          <div className="relative pt-4 pb-2 px-[10px] bg-[#221B3A] overflow-hidden rounded-b-[12px] shadow-[0_4px_15px_rgba(22,15,36,0.1)] mb-1">
-            {/* Background Image: Night City */}
-            <div className="absolute inset-0 opacity-70 mix-blend-luminosity">
-              <img
-                src="https://images.unsplash.com/photo-1543836791-3e4bde0b561b?auto=format&fit=crop&q=80&w=800"
-                className="w-full h-full object-cover"
-                alt="City Night Life"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-[#221B3A]/90 via-[#2A1D4E]/60 to-[#221B3A]/10"></div>
-            </div>
-
-            {/* Ambient Glows */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-              {/* Neon pink glow */}
-              <div className="absolute top-[-10%] right-[-10%] w-[180px] h-[180px] bg-[#FF2E93] rounded-full blur-[70px] opacity-30"></div>
-              {/* Neon orange glow */}
-              <div className="absolute bottom-[-5%] left-[-10%] w-[150px] h-[150px] bg-[#FFD161] rounded-full blur-[60px] opacity-30"></div>
-
-              <div className="absolute top-4 left-10 w-1 h-1 bg-white rounded-full opacity-80 shadow-[0_0_5px_white]"></div>
-              <div className="absolute top-12 left-32 w-1.5 h-1.5 bg-yellow-300 rounded-full opacity-90 blink shadow-[0_0_8px_yellow]"></div>
-              <div className="absolute top-8 right-20 w-1 h-1 bg-pink-300 rounded-full opacity-70 shadow-[0_0_5px_pink]"></div>
-              <div
-                className="meteor"
-                style={{ top: "10%", right: "10%", animationDelay: "0s" }}
-              ></div>
-            </div>
-
+          {/* Header & Banner Area */}
+          <div className="relative pt-4 pb-2 px-[10px] bg-[#FFE74D] overflow-hidden rounded-b-[12px] mb-1">
             {/* Top Bar */}
-            <div className="flex justify-between items-center relative z-10 mb-2 mt-1">
-              <div className="flex items-center text-[14px] font-bold text-white bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/15 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
-                <MapPin size={15} className="mr-1 text-[#FFD161]" />
+            <div className="flex justify-between items-center relative z-10 mb-2 mt-1 px-1">
+              <div className="flex items-center text-[15px] font-bold text-[#111111]">
+                <MapPin size={16} className="mr-1 text-[#111111]" />
                 <span className="drop-shadow-sm">五一广场</span>
-                <ChevronRight size={14} className="ml-1 text-white/70" />
+                <ChevronRight size={14} className="ml-0.5 text-[#111111]" />
               </div>
-              <div className="relative cursor-pointer bg-black/40 p-2 rounded-full backdrop-blur-md border border-white/15 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
-                <Bell size={18} className="text-white drop-shadow-sm" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF2E93] rounded-full border-2 border-[#160f24] shadow-[0_0_6px_#FF2E93]"></span>
+              <div className="relative cursor-pointer p-1">
+                <Bell size={18} className="text-[#111111] drop-shadow-sm" />
+                <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-[#FF0B24] rounded-full border-2 border-[#FFE74D] z-10"></span>
               </div>
             </div>
 
             {/* Title */}
             <div className="relative z-10 mb-2 pl-1">
-              <h1 className="text-[34px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FFF] via-[#FFE599] to-[#FF9E00] tracking-tight leading-none drop-shadow-[0_2px_15px_rgba(255,209,97,0.35)]">
-                长沙欢迎您
+              <h1 
+                className="text-[22px] font-black text-[#111111] tracking-tight leading-[48px] drop-shadow-sm flex items-center"
+                style={{ width: '288px', height: '48px' }}
+              >
+                欢迎来到长沙
               </h1>
-              <p className="text-[#FFD161] text-[13px] font-semibold mt-2.5 flex items-center gap-1.5 opacity-95 drop-shadow-md tracking-wide">
-                <Moon
-                  size={13}
-                  fill="currentColor"
-                  className="text-[#FFD161]"
-                />{" "}
-                深夜恰夜宵，寻味地道长沙
-              </p>
             </div>
 
             {/* Search Bar */}
@@ -818,13 +785,13 @@ export default function App() {
           </div>
 
           {/* Featured Card Module */}
-          <div className="mt-[20px] mb-0 relative z-10 w-full flex flex-col items-center">
-            <div className="w-full overflow-hidden px-4 pb-4 flex flex-col pt-2 -mt-2 touch-none">
+          <div className="mt-[16px] mb-0 relative z-10 w-full flex flex-col items-center">
+            <div className="w-full overflow-hidden px-[11px] pb-[14px] flex flex-col pt-2 -mt-2 touch-none relative">
               <motion.div 
                 className="flex gap-3"
                 drag="x"
                 dragConstraints={{ 
-                  left: -((infiniteStores.length - 1) * 352), 
+                  left: -((featuredStoresToUse.length - 1) * 352), 
                   right: 0 
                 }}
                 animate={{ x: -activeStoreIndex * 352 }}
@@ -832,15 +799,15 @@ export default function App() {
                 onDragEnd={(_, info) => {
                   const swipeThreshold = 50;
                   if (info.offset.x < -swipeThreshold) {
-                    setActiveStoreIndex(Math.min(activeStoreIndex + 1, infiniteStores.length - 1));
+                    setActiveStoreIndex(Math.min(activeStoreIndex + 1, featuredStoresToUse.length - 1));
                   } else if (info.offset.x > swipeThreshold) {
                     setActiveStoreIndex(Math.max(activeStoreIndex - 1, 0));
                   }
                 }}
               >
-              {infiniteStores.map((store, index) => {
+              {featuredStoresToUse.map((store, index) => {
                 const isActive = activeStoreIndex === index;
-                const origIndex = index % featuredStoresToUse.length;
+                const origIndex = index;
                 return (
                   <div
                     key={index}
@@ -885,12 +852,12 @@ export default function App() {
                           )}
 
                           {/* Text overlay on image at bottom */}
-                          <div className="absolute bottom-0 left-0 right-0 p-3 pt-6 flex flex-col gap-1 text-white z-10">
+                          <div className="absolute bottom-0 left-0 right-0 px-3 pb-[10px] pt-10 flex flex-col gap-1 text-white z-10">
                             <div className="flex justify-between items-center w-full">
                               <h2 className="text-[20px] font-extrabold leading-tight truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wide flex-1 pr-2">
                                 {store.name}
                               </h2>
-                              <div className="bg-[#FFCC33] text-[#000000] text-[14px] font-bold px-3 py-[5px] rounded-full shadow-sm shrink-0 leading-none">
+                              <div className="bg-[#FFCC33] text-[#000000] text-[12px] font-bold px-2.5 py-[4px] rounded-full shadow-sm shrink-0 leading-none">
                                 去下单
                               </div>
                             </div>
@@ -920,7 +887,7 @@ export default function App() {
                         </div>
 
                         {/* Reason Box directly below */}
-                        <div className="bg-[#FFF8E7] px-3 py-2.5 relative border-t border-[#FFE4B5]/80 shrink-0 h-[64px] flex flex-col justify-center overflow-hidden">
+                        <div className="bg-gradient-to-r from-[#FFF1DE] to-[#FFFBF6] px-3 py-2.5 relative border-t border-[#FFE4B5]/80 shrink-0 h-[64px] flex flex-col justify-center overflow-hidden">
                             <svg className="absolute top-2 right-2 w-7 h-7 text-[#EBD7BE] opacity-80 pointer-events-none rotate-180" viewBox="0 0 24 24" fill="currentColor">
                               <path d="M14.017 18L14.017 14.923C14.017 11.233 15.654 9.183 18.068 9.183L18.068 11.666C17.069 11.666 16.541 12.428 16.541 14.072L16.541 14.629L19.263 14.629L19.263 18L14.017 18ZM6.216 18L6.216 14.923C6.216 11.233 7.853 9.183 10.267 9.183L10.267 11.666C9.268 11.666 8.74 12.428 8.74 14.072L8.74 14.629L11.462 14.629L11.462 18L6.216 18Z" />
                             </svg>
@@ -930,14 +897,14 @@ export default function App() {
                                 推荐理由
                               </span>
                               {(store as any).signatureDish && store.name !== "茶颜悦色" && (
-                                <span className="text-[#8C5A2A] text-[10px] font-bold bg-[#F4E1C3]/60 px-1.5 py-0.5 rounded-[4px] flex items-center">
-                                  <Star size={8} fill="currentColor" className="opacity-60 mr-0.5"/>
+                                <span className="text-[#8C5A2A] text-[10px] font-bold bg-[#FFE7C5] px-1.5 py-0.5 rounded-[4px] flex items-center">
+                                  <Sparkle size={8} fill="currentColor" className="opacity-60 mr-0.5"/>
                                   特色菜：{(store as any).signatureDish}
                                 </span>
                               )}
                               {store.name === "茶颜悦色" && (
-                                <span className="text-[#8C5A2A] text-[10px] font-bold bg-[#F4E1C3]/60 px-1.5 py-0.5 rounded-[4px] flex items-center">
-                                  <Star size={8} fill="currentColor" className="opacity-60 mr-0.5"/>
+                                <span className="text-[#8C5A2A] text-[10px] font-bold bg-[#FFE7C5] px-1.5 py-0.5 rounded-[4px] flex items-center">
+                                  <Sparkle size={8} fill="currentColor" className="opacity-60 mr-0.5"/>
                                   线下排队
                                 </span>
                               )}
@@ -952,28 +919,23 @@ export default function App() {
                 );
               })}
               </motion.div>
-            </div>
 
-            {/* Scroll Indicators */}
-            <div className="flex gap-1.5 justify-center mt-0 mb-[16px] items-center h-[12px]">
-              {featuredStoresToUse.map((_, index) => (
-                <div 
-                  key={index} 
-                  className={`rounded-full transition-all duration-300 ${index === (activeStoreIndex % featuredStoresToUse.length) ? "w-3.5 h-1.5 bg-[#FFCC33]" : "w-2.5 h-1.5 bg-[#D3D3D3]"}`}
-                />
-              ))}
+              {/* Fast-scroll indicator fade */}
+              {activeStoreIndex < featuredStoresToUse.length - 1 && (
+                <div className="absolute right-0 top-0 bottom-[14px] w-[32px] bg-gradient-to-l from-[#F5F5F6] via-[#F5F5F6]/70 to-[#F5F5F6]/0 pointer-events-none z-20"></div>
+              )}
             </div>
 
             {/* Red Packet Static Banner */}
-            <div className="relative z-30 flex justify-center mb-[4px]">
-              <div className="flex gap-1.5 shrink-0 justify-center w-full">
+            <div className="relative z-30 flex mb-[4px] mt-[2px] px-[11px]">
+              <div className="flex gap-1.5 shrink-0 w-full">
                 {/* 神券 1 */}
                 <div 
                   onClick={scrollToFilter}
                   className="rounded-[8px] overflow-hidden flex bg-[#FF0B24] cursor-pointer active:scale-95 transition-transform shadow-[0_2px_8px_rgba(255,11,36,0.2)] relative border border-[#FF8F8F]/50 shrink-0"
                   style={{ width: 173.5, height: 69 }}
                 >
-                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#1C1731] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
+                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#F5F5F6] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
                   <div className="bg-white flex flex-col items-center justify-center relative shrink-0" style={{ width: 76 }}>
                     <span className="text-[#FF0B24] font-black text-[28px] leading-none flex items-baseline">
                       <span className="text-[14px] mr-[1px]">¥</span>10
@@ -997,7 +959,7 @@ export default function App() {
                   className="rounded-[8px] overflow-hidden flex bg-[#FF0B24] cursor-pointer active:scale-95 transition-transform shadow-[0_2px_8px_rgba(255,11,36,0.2)] relative border border-[#FF8F8F]/50 shrink-0"
                   style={{ width: 173.5, height: 69 }}
                 >
-                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#1C1731] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
+                  <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-[#F5F5F6] rounded-full border-r border-[#FF8F8F]/50 z-10"></div>
                   <div className="bg-white flex flex-col items-center justify-center relative shrink-0" style={{ width: 76 }}>
                     <span className="text-[#FF0B24] font-black text-[28px] leading-none flex items-baseline">
                       <span className="text-[14px] mr-[1px]">¥</span>8
@@ -1021,14 +983,14 @@ export default function App() {
           {/* Store List Header */}
           <div
             ref={listRef}
-            className="sticky top-0 bg-[#1C1731] z-30 pt-0 pb-[20px] px-3 shadow-[0_10px_10px_-10px_rgba(0,0,0,0.5)]"
+            className="sticky top-0 bg-[#F5F5F6] z-30 pt-0 pb-[20px] px-3 shadow-[0_10px_10px_-10px_rgba(0,0,0,0.05)]"
           >
             <div className="flex items-center gap-5 px-1">
               <div className="relative cursor-pointer">
-                <span className="text-[18px] font-extrabold text-[#FFF0D4]">
+                <span className="text-[18px] font-extrabold text-[#111111]">
                   附近商家
                 </span>
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-1 bg-[#FFD161] rounded-full shadow-[0_0_8px_#FFD161]"></div>
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-1 bg-[#FFD161] rounded-full shadow-[0_0_8px_rgba(255,209,97,0.5)]"></div>
               </div>
             </div>
           </div>
@@ -1136,22 +1098,22 @@ export default function App() {
         </div>
 
         {/* Bottom Nav */}
-        <nav className="absolute bottom-0 w-full bg-[#221B3A]/95 backdrop-blur-md border-t border-[#3b2d5c] flex justify-around items-center pt-1.5 pb-2 px-2 z-50">
+        <nav className="absolute bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-200 flex justify-around items-center pt-1.5 pb-2 px-2 z-50">
           <div className="flex flex-col items-center flex-1 cursor-pointer">
             <div className="w-8 h-8 rounded-full bg-[#FFD161] flex items-center justify-center mb-0.5 shadow-[0_0_10px_rgba(255,209,97,0.3)] transform hover:scale-105 transition-transform">
               <Home size={18} className="text-gray-900 fill-gray-900" />
             </div>
-            <span className="text-[10px] font-bold text-[#FFD161]">首页</span>
+            <span className="text-[10px] font-bold text-[#111111]">首页</span>
           </div>
-          <div className="flex flex-col items-center flex-1 text-gray-400 cursor-pointer hover:text-gray-200 transition-colors">
+          <div className="flex flex-col items-center flex-1 text-gray-500 cursor-pointer hover:text-gray-800 transition-colors">
             <Crown size={20} className="mb-0.5" strokeWidth={1.5} />
             <span className="text-[10px] font-medium">会员</span>
           </div>
-          <div className="flex flex-col items-center flex-1 text-gray-400 cursor-pointer hover:text-gray-200 transition-colors">
+          <div className="flex flex-col items-center flex-1 text-gray-500 cursor-pointer hover:text-gray-800 transition-colors">
             <FileText size={20} className="mb-0.5" strokeWidth={1.5} />
             <span className="text-[10px] font-medium">订单</span>
           </div>
-          <div className="flex flex-col items-center flex-1 text-gray-400 cursor-pointer hover:text-gray-200 transition-colors">
+          <div className="flex flex-col items-center flex-1 text-gray-500 cursor-pointer hover:text-gray-800 transition-colors">
             <User size={20} className="mb-0.5" strokeWidth={1.5} />
             <span className="text-[10px] font-medium">我的</span>
           </div>
