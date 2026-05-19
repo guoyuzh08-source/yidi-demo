@@ -565,11 +565,7 @@ const AIRestaurantCard = ({
 
   return (
     <div className="w-full h-full bg-gradient-to-b from-[#FFFDF8] to-[#FFF3E0] rounded-[12px] flex flex-col p-3 relative overflow-hidden">
-      {index !== undefined && total !== undefined && (
-        <div className="absolute top-3 right-3 bg-black/10 backdrop-blur-md text-[#8C5A2A] text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm z-20 border border-[#8C5A2A]/20">
-          {index + 1}/{total}
-        </div>
-      )}
+
       {/* Subtle background glow */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD161]/20 blur-[30px] pointer-events-none rounded-full z-0" />
 
@@ -653,7 +649,7 @@ const AIRestaurantCard = ({
       </div>
 
       {/* Button at bottom */}
-      <div className="w-full flex justify-center z-20 pointer-events-auto shrink-0 pb-2">
+      <div className="w-full flex justify-center z-20 pointer-events-auto shrink-0 pb-0 pt-0.5">
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -837,10 +833,7 @@ export default function App() {
                           {/* Gradient overlay for readability */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-                          {/* Pagination Indicator */}
-                          <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm z-10 border border-white/10">
-                            {origIndex + 1}/{featuredStoresToUse.length}
-                          </div>
+
 
                           {/* Badge */}
                           {store.name === "茶颜悦色" && (
